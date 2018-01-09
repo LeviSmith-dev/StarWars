@@ -1,8 +1,19 @@
-<h3>Character List</h3>
+<mat-sidenav-container>
 
-<mat-list>
-  <mat-list-item *ngFor="let character of characters">
-    <img mat-list-avatar [src]="character.avatar" >
-    <p>{{character.name | uppercase}}</p>
-  </mat-list-item>
-</mat-list>
+    <h3>Character List</h3>
+    <mat-form-field>
+      <input matInput placeholder="Name" [(ngModel)]="characterFilterBy"/>
+    </mat-form-field>
+
+
+  <mat-list class="list">
+    <mat-list-item *ngFor="let character of characters | characterListFilter: characterFilterBy">
+      <p matLine>{{character.name | uppercase}}</p>
+      <p matLine>  {{character.gender}} -- {{character.birth_year}}</p>
+      <p matLine>
+        <app-force [force]="character.force" (forceStrengthClicked)="onNotify($event)"></app-force>
+      </p>
+      <img mat-list-avatar [src]="character.avatar" >
+    </mat-list-item>
+  </mat-list>
+</mat-sidenav-container>
